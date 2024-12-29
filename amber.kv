@@ -1,0 +1,100 @@
+
+# :kivy 2.0.0
+
+<AmberContent>:
+    ScreenManager:
+        id: screen_manager
+        canvas.before:
+            Color:
+                rgb: app.dict_amber().get('app_background')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+##########################################################
+########################################################## home screen
+##########################################################
+
+        Screen:
+            name: 'home'
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        padding: [10, 0, 0, 25]
+                        GridLayout:
+                            cols: 2
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                spacing: '10dp'
+                                MDRoundFlatIconButton:
+                                    icon: 'format-size'
+                                    text: 'window size'
+                                    font_size: '14sp'
+                                    on_release:
+                                        app.selection_dropdown(self, 'navbar')
+                        MDRoundFlatIconButton:
+                            icon: 'copyright'
+                            text: app.get_current_year('Datanota')
+                            font_size: '14sp'
+                            on_release:
+                                app.amber_window_ss('amber.png')
+                GridLayout:
+                    cols: 2
+                    padding: '30dp'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: 0, 0, 0, 50
+                        Image:
+                            source: './assets/amber_applogo.png'
+                            allow_stretch: True
+                    GridLayout:
+                        rows: 2
+                        spacing: '30dp'
+                        padding: 20, 200, 0, 0
+                        MDFillRoundFlatIconButton:
+                            icon: 'expand-all'
+                            text: 'Buy/Sell'
+                            font_size: '20sp'
+                            md_bg_color: app.dict_amber().get('dn_gold')
+                            size_hint_x: 0.6
+                            on_release:
+                                app.get_amber_buy_sell_widgets()
+                        MDFillRoundFlatIconButton:
+                            icon: 'play-circle'
+                            text: 'amber-data360 Demo  '
+                            font_size: '20sp'
+                            md_bg_color: 216/255, 171/255, 39/255
+                            size_hint_x: 0.6
+                            on_release:
+                                app.dn_amber_demo()
+
+##########################################################
+########################################################## db_schema and buy_sell screen
+##########################################################
+
+        Screen:
+            name: 'buy_sell_home'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '0dp'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    padding: '15dp'
+                    left_action_items:
+                        [
+                        ['home', lambda x: app.callback_top_nav('home'), 'home']
+                        ]
+                    right_action_items:
+                        [
+                        ["copyright", lambda x: app.amber_window_ss('amber.png'), '']
+                        ]
+                BoxLayout:
+                    orientation: 'vertical'
+                    id: buy_sell_box
